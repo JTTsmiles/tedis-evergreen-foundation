@@ -8,15 +8,34 @@ import {
   useMemo,
   useState,
 } from "react";
-import {
-  ACTIVE_SYSTEMS,
-  WASTE_RECOVERED_TONS,
-  getCumulativeImpact,
-} from "../src/lib/impactMetrics";
 
 /* =========================================================
    IMPACT MODEL
 ========================================================= */
+
+const ACTIVE_SYSTEMS = 2700;
+const SYSTEM_CAPACITY_KW = 0.9;
+const EQUIVALENT_HOURS_PER_DAY = 5;
+const CARBON_FACTOR_KG_PER_KWH = 0.5;
+
+const WASTE_RECOVERED_TONS = 13_500;
+
+/*
+  Internal calculation baseline.
+  It is intentionally not displayed publicly.
+*/
+const IMPACT_START_DATE = new Date(
+  "2025-09-09T00:00:00+01:00"
+).getTime();
+
+const DAILY_ENERGY_KWH =
+  ACTIVE_SYSTEMS *
+  SYSTEM_CAPACITY_KW *
+  EQUIVALENT_HOURS_PER_DAY;
+
+const DAILY_CARBON_PREVENTED_KG =
+  DAILY_ENERGY_KWH *
+  CARBON_FACTOR_KG_PER_KWH;
 
 /* =========================================================
    HERO
@@ -104,7 +123,24 @@ export default function Home() {
   }, []);
 
   const impact = useMemo(() => {
-    return getCumulativeImpact(now);
+    const elapsedMs = Math.max(
+      0,
+      now - IMPACT_START_DATE
+    );
+
+    const elapsedDays =
+      elapsedMs /
+      (1000 * 60 * 60 * 24);
+
+    return {
+      cumulativeEnergyKwh:
+        DAILY_ENERGY_KWH *
+        elapsedDays,
+
+      cumulativeCarbonKg:
+        DAILY_CARBON_PREVENTED_KG *
+        elapsedDays,
+    };
   }, [now]);
 
   const currentHero =
@@ -148,28 +184,27 @@ export default function Home() {
 
         <div className="hero-overlay" />
 
-        <div className="home-container hero-content">
+        <div className="home-container hero-content hero-content-desktop">
           <span className="eyebrow hero-eyebrow">
-            Hard-to-reach communities ·
-            Clean energy · Technology
+            A Technology NGO
           </span>
 
           <h1>
-            Energy changes what
-            becomes possible.
+            We often hear and celebrate the people who make it, but rarely ask who didn&apos;t, or what held them back.
           </h1>
 
           <p>
-            We provide clean
-            electricity to underserved
-            communities in hard-to-reach
-            areas of Nigeria. We provide 
-            the systems for free, and use
-            technology to keep them working.
-            
+            Not everyone who fails to achieve something extraordinary lacks extraordinary potential. Sometimes, they simply grew up without reliable electricity and the opportunities it makes possible.
           </p>
 
           <div className="hero-actions">
+            <Link
+              href="/our-work"
+              className="button button-green"
+            >
+              See How We Work
+            </Link>
+
             <Link
               href="/energy-view"
               className="button button-outline"
@@ -199,6 +234,42 @@ export default function Home() {
                 />
               )
             )}
+          </div>
+        </div>
+      </section>
+
+      <section className="mobile-hero-copy">
+        <div className="home-container">
+          <span className="eyebrow">A Technology NGO</span>
+
+          <h1>
+            We often hear and celebrate the people who make it, but rarely ask who didn&apos;t, or what held them back.
+          </h1>
+
+          <p>
+            Not everyone who fails to achieve something extraordinary lacks extraordinary potential. Sometimes, they simply grew up without reliable electricity and the opportunities it makes possible.
+          </p>
+
+          <div className="hero-actions mobile-hero-actions">
+            <Link href="/our-work" className="button button-green">
+              See How We Work
+            </Link>
+
+            <Link href="/energy-view" className="button mobile-outline-button">
+              Explore Community Network
+            </Link>
+          </div>
+
+          <div className="hero-dots mobile-hero-dots">
+            {HERO_SLIDES.map((slide, index) => (
+              <button
+                key={`mobile-${slide.src}-${index}`}
+                type="button"
+                aria-label={`Show hero slide ${index + 1}`}
+                onClick={() => setHeroSlide(index)}
+                className={index === heroSlide ? "hero-dot active" : "hero-dot"}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -1336,6 +1407,10 @@ export default function Home() {
           background: white;
         }
 
+        .mobile-hero-copy {
+          display: none;
+        }
+
         /* =============================
            WHY
         ============================= */
@@ -2433,12 +2508,78 @@ export default function Home() {
 
           .hero {
             width: calc(100% - 20px);
-            min-height: 590px;
+            min-height: 0;
+            height: auto;
+            aspect-ratio: 4 / 3;
 
             margin: 8px auto 0;
             border-radius: 16px;
 
-            align-items: flex-end;
+            display: block;
+          }
+
+          .hero-content-desktop {
+            display: none;
+          }
+
+          .hero-overlay {
+            display: none;
+          }
+
+          .hero-media video,
+          .hero-image {
+            object-fit: cover;
+            object-position: center;
+          }
+
+          .mobile-hero-copy {
+            display: block;
+            padding: 26px 0 34px;
+            background: var(--foundation-cream);
+          }
+
+          .mobile-hero-copy .eyebrow {
+            margin-bottom: 12px;
+          }
+
+          .mobile-hero-copy h1 {
+            max-width: 680px;
+            margin: 0;
+            color: var(--foundation-dark);
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.045em;
+            line-height: 1.02;
+          }
+
+          .mobile-hero-copy p {
+            max-width: 620px;
+            margin: 18px 0 0;
+            color: var(--foundation-muted);
+            font-size: 15px;
+            line-height: 1.65;
+          }
+
+          .mobile-hero-actions {
+            margin-top: 22px;
+          }
+
+          .mobile-outline-button {
+            border: 1px solid var(--foundation-border);
+            color: var(--foundation-dark) !important;
+            background: transparent;
+          }
+
+          .mobile-hero-dots {
+            margin-top: 20px;
+          }
+
+          .mobile-hero-dots .hero-dot {
+            background: rgba(16, 40, 31, 0.25);
+          }
+
+          .mobile-hero-dots .hero-dot.active {
+            background: var(--foundation-green);
           }
 
           .hero-overlay {
@@ -2753,450 +2894,14 @@ export default function Home() {
             font-size: 42px;
           }
 
+          .mobile-hero-copy h1 {
+            font-size: 32px;
+          }
+
           .section-title {
             font-size: 35px;
           }
         }
-
-        /* =========================================================
-           MOBILE COMPACT OVERRIDES
-           Keeps desktop unchanged. On phones the hero image gets its
-           own visible area and the rest of the page is tightened.
-        ========================================================= */
-
-        @media (max-width: 760px) {
-          .foundation-home {
-            background: #ffffff;
-          }
-
-          .home-container {
-            width: calc(100% - 28px);
-          }
-
-          .eyebrow {
-            margin-bottom: 8px;
-            font-size: 9px;
-            letter-spacing: 0.13em;
-          }
-
-          .section-title {
-            font-size: 30px;
-            line-height: 1.04;
-            letter-spacing: -0.04em;
-          }
-
-          .section-copy {
-            margin-top: 12px;
-            font-size: 13px;
-            line-height: 1.55;
-          }
-
-          .text-link {
-            margin-top: 14px;
-            font-size: 12px;
-          }
-
-          .button {
-            min-height: 44px;
-            padding: 0 18px;
-            font-size: 12px;
-          }
-
-          /* HERO: image first, copy below it — no text covering the photo */
-          .hero {
-            width: calc(100% - 20px);
-            min-height: 0;
-            height: auto;
-            margin: 6px auto 0;
-            display: block;
-            overflow: hidden;
-            border-radius: 16px;
-            background: var(--foundation-dark);
-          }
-
-          .hero-media {
-            position: relative;
-            inset: auto;
-            width: 100%;
-            height: clamp(260px, 74vw, 360px);
-            background: #ffffff;
-          }
-
-          .hero-media video,
-          .hero-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover !important;
-            object-position: center center !important;
-            background: #ffffff;
-          }
-
-          .hero-overlay {
-            display: none;
-          }
-
-          .hero-content {
-            width: 100%;
-            padding: 22px 18px 20px;
-            background: var(--foundation-dark);
-          }
-
-          .hero-eyebrow {
-            margin-bottom: 8px;
-            color: #9ee4b1;
-          }
-
-          .hero h1 {
-            max-width: 330px;
-            font-size: 35px;
-            line-height: 0.98;
-            letter-spacing: -0.05em;
-          }
-
-          .hero-content > p {
-            max-width: 360px;
-            margin-top: 12px;
-            font-size: 13px;
-            line-height: 1.5;
-          }
-
-          .hero-actions {
-            margin-top: 16px;
-            display: block;
-          }
-
-          .hero-actions .button {
-            width: 100%;
-          }
-
-          .hero-dots {
-            margin-top: 14px;
-          }
-
-          /* REMOVE LARGE MOBILE GAPS BETWEEN SECTIONS */
-          .why-section,
-          .technology-section,
-          .supporters-section,
-          .final-cta {
-            padding: 30px 0;
-          }
-
-          .circular-section {
-            padding: 0 0 30px;
-          }
-
-          .stories-section {
-            padding: 24px 0 30px;
-          }
-
-          .impact-section {
-            padding: 28px 0 18px;
-          }
-
-          .work-section {
-            padding: 24px 0;
-          }
-
-          .subscription-section {
-            padding: 0 0 30px;
-          }
-
-          .why-layout,
-          .split-heading,
-          .technology-layout,
-          .subscription-card {
-            gap: 22px;
-          }
-
-          /* WHY */
-          .why-section {
-            padding-top: 30px;
-          }
-
-          .why-grid {
-            margin-top: 2px;
-            gap: 0;
-          }
-
-          .why-card {
-            padding: 15px 0;
-          }
-
-          .why-card h3 {
-            margin: 7px 0 5px;
-            font-size: 17px;
-          }
-
-          .why-card p {
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          /* CIRCULAR ECONOMY */
-          .circular-video {
-            margin-top: 14px;
-            border-radius: 14px;
-          }
-
-          .circular-points {
-            margin-top: 16px;
-            gap: 0;
-          }
-
-          .circular-points article {
-            padding: 14px 0;
-          }
-
-          .circular-points h3 {
-            margin-top: 7px;
-            font-size: 17px;
-          }
-
-          .circular-points p {
-            margin-top: 6px;
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          /* FEATURED STORY */
-          .featured-story {
-            gap: 16px;
-          }
-
-          .featured-story-image {
-            border-radius: 14px;
-          }
-
-          .featured-story-copy h2 {
-            font-size: 32px;
-          }
-
-          .featured-story-copy p {
-            margin-top: 10px;
-            font-size: 13px;
-            line-height: 1.55;
-          }
-
-          .featured-story-copy .story-note {
-            padding-top: 12px;
-          }
-
-          .story-impact-link-row {
-            margin-top: 4px;
-          }
-
-          /* IMPACT NUMBERS */
-          .impact-heading .section-copy {
-            margin-top: 10px;
-          }
-
-          .impact-grid {
-            margin-top: 16px;
-          }
-
-          .impact-grid article {
-            padding: 20px 8px;
-          }
-
-          .impact-grid strong {
-            font-size: 30px;
-          }
-
-          .impact-grid h3 {
-            margin-top: 7px;
-            font-size: 14px;
-          }
-
-          .impact-grid p {
-            margin-top: 6px;
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          .impact-link-row {
-            margin-top: 10px;
-          }
-
-          .network-panel {
-            margin-top: 12px;
-            padding: 20px 18px;
-            gap: 16px;
-            border-radius: 16px;
-          }
-
-          .network-panel h3 {
-            font-size: 25px;
-            line-height: 1.04;
-          }
-
-          .live-network-button {
-            min-height: 44px;
-            font-size: 10px;
-          }
-
-          /* ACCESS / HOW IT WORKS */
-          .split-heading {
-            gap: 14px;
-          }
-
-          .work-list {
-            margin-top: 14px;
-          }
-
-          .work-list article {
-            padding: 18px 0;
-            grid-template-columns: 34px 1fr;
-            gap: 10px;
-          }
-
-          .work-list h3 {
-            font-size: 18px;
-          }
-
-          .work-list p {
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          /* $1 SUBSCRIPTION */
-          .subscription-card {
-            padding: 20px 18px;
-            border-radius: 16px;
-          }
-
-          .subscription-card h2 {
-            font-size: 30px;
-            line-height: 1.02;
-          }
-
-          .subscription-card > div:first-child > p {
-            margin-top: 12px;
-            font-size: 13px;
-            line-height: 1.55;
-          }
-
-          .fund-grid {
-            gap: 8px;
-          }
-
-          .fund-grid article {
-            padding: 15px;
-            border-radius: 13px;
-          }
-
-          .fund-grid strong {
-            font-size: 14px;
-          }
-
-          .fund-grid span {
-            margin-top: 5px;
-            font-size: 11px;
-            line-height: 1.45;
-          }
-
-          /* TECHNOLOGY */
-          .technology-layout {
-            gap: 18px;
-          }
-
-          .technology-cards {
-            gap: 9px;
-          }
-
-          .technology-cards article {
-            padding: 18px;
-            border-radius: 14px;
-          }
-
-          .technology-cards article > span {
-            width: 32px;
-            height: 32px;
-            margin-bottom: 10px;
-            font-size: 10px;
-          }
-
-          .technology-cards h3 {
-            font-size: 18px;
-          }
-
-          .technology-cards p {
-            margin-top: 6px;
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          .technology-bottom {
-            margin-top: 18px;
-            padding: 18px;
-            gap: 14px;
-            border-radius: 16px;
-          }
-
-          .technology-bottom h3 {
-            margin-top: 7px;
-            font-size: 26px;
-          }
-
-          .technology-bottom p {
-            margin-top: 8px;
-            font-size: 12px;
-            line-height: 1.5;
-          }
-
-          /* SUPPORTERS */
-          .supporters-heading {
-            max-width: 100%;
-          }
-
-          .supporters-grid {
-            margin-top: 22px;
-            gap: 8px;
-          }
-
-          .supporter-card {
-            height: 92px;
-            border-radius: 12px;
-          }
-
-          .supporter-card img {
-            padding: 14px;
-          }
-
-          /* FINAL CTA */
-          .final-cta h2 {
-            font-size: 32px;
-            line-height: 1.02;
-          }
-
-          .final-cta p {
-            margin-top: 12px;
-            font-size: 13px;
-            line-height: 1.5;
-          }
-
-          .final-cta-layout {
-            gap: 20px;
-          }
-
-          .final-actions {
-            gap: 8px;
-          }
-        }
-
-        @media (max-width: 410px) {
-          .hero-media {
-            height: 270px;
-          }
-
-          .hero h1 {
-            font-size: 32px;
-          }
-
-          .section-title {
-            font-size: 28px;
-          }
-        }
-
       `}</style>
     </main>
   );
