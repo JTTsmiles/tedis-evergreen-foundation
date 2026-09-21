@@ -199,13 +199,6 @@ export default function Home() {
 
           <div className="hero-actions">
             <Link
-              href="/our-work"
-              className="button button-green"
-            >
-              See How We Work
-            </Link>
-
-            <Link
               href="/energy-view"
               className="button button-outline"
             >
@@ -238,42 +231,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mobile-hero-copy">
-        <div className="home-container">
-          <span className="eyebrow">A Technology NGO</span>
-
-          <h1>
-            We often hear and celebrate the people who make it, but rarely ask who didn&apos;t, or what held them back.
-          </h1>
-
-          <p>
-            Not everyone who fails to achieve something extraordinary lacks extraordinary potential. Sometimes, they simply grew up without reliable electricity and the opportunities it makes possible.
-          </p>
-
-          <div className="hero-actions mobile-hero-actions">
-            <Link href="/our-work" className="button button-green">
-              See How We Work
-            </Link>
-
-            <Link href="/energy-view" className="button mobile-outline-button">
-              Explore Community Network
-            </Link>
-          </div>
-
-          <div className="hero-dots mobile-hero-dots">
-            {HERO_SLIDES.map((slide, index) => (
-              <button
-                key={`mobile-${slide.src}-${index}`}
-                type="button"
-                aria-label={`Show hero slide ${index + 1}`}
-                onClick={() => setHeroSlide(index)}
-                className={index === heroSlide ? "hero-dot active" : "hero-dot"}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* =====================================================
           WHY WE EXIST
       ====================================================== */}
@@ -290,25 +247,19 @@ export default function Home() {
             </h2>
 
             <p className="section-copy">
-              For millions of people across Africa, low incomes and poor
-              infrastructure stand between them and safe, clean electricity
-              in their homes and businesses.
+              For millions of people across Nigeria and Africa, low incomes
+              and poor infrastructure stand between them and safe electricity
+              for children to study, parents to improve their business income,
+              and clinics to preserve medicines and provide healthcare when
+              night falls, saving lives.
             </p>
 
             <p className="section-copy">
-              That’s where TEDIS Evergreen Foundation comes in. We provide
-              smart energy solutions that break down the barriers preventing
-              low-income people in Nigeria’s hardest-to-reach communities from
-              accessing safe, reliable and clean electricity.
-            </p>
-
-            <p className="section-copy why-impact-copy">
-              <strong>Our solutions are working.</strong> Today, more than
-              2,700 people in hard-to-reach communities have access to
-              electricity in their homes. Children can study at night and use
-              digital learning tools. Microbusinesses gain up to 5 additional
-              productive hours, creating more opportunities to increase their
-              income, while cleaner energy helps reduce dangerous emissions.
+              This is why we built an energy infrastructure for communities
+              that existing solutions have failed to reach. Using hardware,
+              IoT and AI, we provide clean electricity systems at no cost and
+              use technology to remotely monitor, manage and maintain them,
+              keeping the systems working long after installation.
             </p>
 
             <Link
@@ -2765,7 +2716,7 @@ export default function Home() {
           }
 
           .why-section {
-            padding: 48px 0 28px;
+            padding: 28px 0 28px;
           }
 
           .circular-section {
