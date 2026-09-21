@@ -2757,6 +2757,446 @@ export default function Home() {
             font-size: 35px;
           }
         }
+
+        /* =========================================================
+           MOBILE COMPACT OVERRIDES
+           Keeps desktop unchanged. On phones the hero image gets its
+           own visible area and the rest of the page is tightened.
+        ========================================================= */
+
+        @media (max-width: 760px) {
+          .foundation-home {
+            background: #ffffff;
+          }
+
+          .home-container {
+            width: calc(100% - 28px);
+          }
+
+          .eyebrow {
+            margin-bottom: 8px;
+            font-size: 9px;
+            letter-spacing: 0.13em;
+          }
+
+          .section-title {
+            font-size: 30px;
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+          }
+
+          .section-copy {
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.55;
+          }
+
+          .text-link {
+            margin-top: 14px;
+            font-size: 12px;
+          }
+
+          .button {
+            min-height: 44px;
+            padding: 0 18px;
+            font-size: 12px;
+          }
+
+          /* HERO: image first, copy below it — no text covering the photo */
+          .hero {
+            width: calc(100% - 20px);
+            min-height: 0;
+            height: auto;
+            margin: 6px auto 0;
+            display: block;
+            overflow: hidden;
+            border-radius: 16px;
+            background: var(--foundation-dark);
+          }
+
+          .hero-media {
+            position: relative;
+            inset: auto;
+            width: 100%;
+            height: clamp(260px, 74vw, 360px);
+            background: #ffffff;
+          }
+
+          .hero-media video,
+          .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover !important;
+            object-position: center center !important;
+            background: #ffffff;
+          }
+
+          .hero-overlay {
+            display: none;
+          }
+
+          .hero-content {
+            width: 100%;
+            padding: 22px 18px 20px;
+            background: var(--foundation-dark);
+          }
+
+          .hero-eyebrow {
+            margin-bottom: 8px;
+            color: #9ee4b1;
+          }
+
+          .hero h1 {
+            max-width: 330px;
+            font-size: 35px;
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+          }
+
+          .hero-content > p {
+            max-width: 360px;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+          }
+
+          .hero-actions {
+            margin-top: 16px;
+            display: block;
+          }
+
+          .hero-actions .button {
+            width: 100%;
+          }
+
+          .hero-dots {
+            margin-top: 14px;
+          }
+
+          /* REMOVE LARGE MOBILE GAPS BETWEEN SECTIONS */
+          .why-section,
+          .technology-section,
+          .supporters-section,
+          .final-cta {
+            padding: 30px 0;
+          }
+
+          .circular-section {
+            padding: 0 0 30px;
+          }
+
+          .stories-section {
+            padding: 24px 0 30px;
+          }
+
+          .impact-section {
+            padding: 28px 0 18px;
+          }
+
+          .work-section {
+            padding: 24px 0;
+          }
+
+          .subscription-section {
+            padding: 0 0 30px;
+          }
+
+          .why-layout,
+          .split-heading,
+          .technology-layout,
+          .subscription-card {
+            gap: 22px;
+          }
+
+          /* WHY */
+          .why-section {
+            padding-top: 30px;
+          }
+
+          .why-grid {
+            margin-top: 2px;
+            gap: 0;
+          }
+
+          .why-card {
+            padding: 15px 0;
+          }
+
+          .why-card h3 {
+            margin: 7px 0 5px;
+            font-size: 17px;
+          }
+
+          .why-card p {
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          /* CIRCULAR ECONOMY */
+          .circular-video {
+            margin-top: 14px;
+            border-radius: 14px;
+          }
+
+          .circular-points {
+            margin-top: 16px;
+            gap: 0;
+          }
+
+          .circular-points article {
+            padding: 14px 0;
+          }
+
+          .circular-points h3 {
+            margin-top: 7px;
+            font-size: 17px;
+          }
+
+          .circular-points p {
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          /* FEATURED STORY */
+          .featured-story {
+            gap: 16px;
+          }
+
+          .featured-story-image {
+            border-radius: 14px;
+          }
+
+          .featured-story-copy h2 {
+            font-size: 32px;
+          }
+
+          .featured-story-copy p {
+            margin-top: 10px;
+            font-size: 13px;
+            line-height: 1.55;
+          }
+
+          .featured-story-copy .story-note {
+            padding-top: 12px;
+          }
+
+          .story-impact-link-row {
+            margin-top: 4px;
+          }
+
+          /* IMPACT NUMBERS */
+          .impact-heading .section-copy {
+            margin-top: 10px;
+          }
+
+          .impact-grid {
+            margin-top: 16px;
+          }
+
+          .impact-grid article {
+            padding: 20px 8px;
+          }
+
+          .impact-grid strong {
+            font-size: 30px;
+          }
+
+          .impact-grid h3 {
+            margin-top: 7px;
+            font-size: 14px;
+          }
+
+          .impact-grid p {
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          .impact-link-row {
+            margin-top: 10px;
+          }
+
+          .network-panel {
+            margin-top: 12px;
+            padding: 20px 18px;
+            gap: 16px;
+            border-radius: 16px;
+          }
+
+          .network-panel h3 {
+            font-size: 25px;
+            line-height: 1.04;
+          }
+
+          .live-network-button {
+            min-height: 44px;
+            font-size: 10px;
+          }
+
+          /* ACCESS / HOW IT WORKS */
+          .split-heading {
+            gap: 14px;
+          }
+
+          .work-list {
+            margin-top: 14px;
+          }
+
+          .work-list article {
+            padding: 18px 0;
+            grid-template-columns: 34px 1fr;
+            gap: 10px;
+          }
+
+          .work-list h3 {
+            font-size: 18px;
+          }
+
+          .work-list p {
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          /* $1 SUBSCRIPTION */
+          .subscription-card {
+            padding: 20px 18px;
+            border-radius: 16px;
+          }
+
+          .subscription-card h2 {
+            font-size: 30px;
+            line-height: 1.02;
+          }
+
+          .subscription-card > div:first-child > p {
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.55;
+          }
+
+          .fund-grid {
+            gap: 8px;
+          }
+
+          .fund-grid article {
+            padding: 15px;
+            border-radius: 13px;
+          }
+
+          .fund-grid strong {
+            font-size: 14px;
+          }
+
+          .fund-grid span {
+            margin-top: 5px;
+            font-size: 11px;
+            line-height: 1.45;
+          }
+
+          /* TECHNOLOGY */
+          .technology-layout {
+            gap: 18px;
+          }
+
+          .technology-cards {
+            gap: 9px;
+          }
+
+          .technology-cards article {
+            padding: 18px;
+            border-radius: 14px;
+          }
+
+          .technology-cards article > span {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 10px;
+            font-size: 10px;
+          }
+
+          .technology-cards h3 {
+            font-size: 18px;
+          }
+
+          .technology-cards p {
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          .technology-bottom {
+            margin-top: 18px;
+            padding: 18px;
+            gap: 14px;
+            border-radius: 16px;
+          }
+
+          .technology-bottom h3 {
+            margin-top: 7px;
+            font-size: 26px;
+          }
+
+          .technology-bottom p {
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+          }
+
+          /* SUPPORTERS */
+          .supporters-heading {
+            max-width: 100%;
+          }
+
+          .supporters-grid {
+            margin-top: 22px;
+            gap: 8px;
+          }
+
+          .supporter-card {
+            height: 92px;
+            border-radius: 12px;
+          }
+
+          .supporter-card img {
+            padding: 14px;
+          }
+
+          /* FINAL CTA */
+          .final-cta h2 {
+            font-size: 32px;
+            line-height: 1.02;
+          }
+
+          .final-cta p {
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+          }
+
+          .final-cta-layout {
+            gap: 20px;
+          }
+
+          .final-actions {
+            gap: 8px;
+          }
+        }
+
+        @media (max-width: 410px) {
+          .hero-media {
+            height: 270px;
+          }
+
+          .hero h1 {
+            font-size: 32px;
+          }
+
+          .section-title {
+            font-size: 28px;
+          }
+        }
+
       `}</style>
     </main>
   );
