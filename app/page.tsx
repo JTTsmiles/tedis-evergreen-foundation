@@ -265,21 +265,23 @@ export default function Home() {
               keeping the systems working long after installation.
             </p>
 
+            <p className="why-impact-line">
+              We are powering over 2,500 people across 25 communities, powering extraordinary dreams.
+            </p>
+
             <div className="why-actions">
               <Link
-                href="/impact"
-                className="impact-pill"
+                href="/energy-view"
+                className="button button-dark"
               >
-                <strong>2,700+</strong>
-                <span>People Reached</span>
+                View the Live Network
               </Link>
 
               <Link
                 href="/about"
-                className="text-link why-mission-link"
+                className="button button-outline-dark"
               >
-                Learn About Our Mission
-                <span>→</span>
+                See Our Mission
               </Link>
             </div>
           </div>
@@ -1351,6 +1353,21 @@ export default function Home() {
 
         .why-lead {
           margin-top: 0;
+        }
+
+        .why-impact-line {
+          max-width: 760px;
+          margin: 24px 0 0;
+          color: var(--foundation-dark);
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1.55;
+        }
+
+        .button-outline-dark {
+          border: 1px solid var(--foundation-dark);
+          background: transparent;
+          color: var(--foundation-dark) !important;
         }
 
         .why-actions {
