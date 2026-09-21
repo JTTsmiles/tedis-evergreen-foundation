@@ -197,15 +197,6 @@ export default function Home() {
             Not everyone who fails to achieve something extraordinary lacks extraordinary potential. Sometimes, they simply grew up without reliable electricity and the opportunities it makes possible.
           </p>
 
-          <div className="hero-actions">
-            <Link
-              href="/energy-view"
-              className="button button-outline"
-            >
-              Explore Community Network
-            </Link>
-          </div>
-
           <div className="hero-dots">
             {HERO_SLIDES.map(
               (slide, index) => (
@@ -231,22 +222,34 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mobile-hero-copy">
+        <div className="home-container">
+          <span className="eyebrow">
+            A Technology NGO
+          </span>
+
+          <h1>
+            We often hear and celebrate the people who make it, but rarely ask who didn&apos;t, or what held them back.
+          </h1>
+
+          <p>
+            Not everyone who fails to achieve something extraordinary lacks extraordinary potential. Sometimes, they simply grew up without reliable electricity and the opportunities it makes possible.
+          </p>
+        </div>
+      </section>
+
       {/* =====================================================
           WHY WE EXIST
       ====================================================== */}
 
       <section className="why-section">
-        <div className="home-container why-layout">
-          <div>
-            <span className="eyebrow">
-              Why We Exist
-            </span>
+        <div className="home-container why-simple">
+          <span className="eyebrow">
+            Why We Exist
+          </span>
 
-            <h2 className="section-title">
-              There’s a smart way to end the energy crisis.
-            </h2>
-
-            <p className="section-copy">
+          <div className="why-copy-block">
+            <p className="section-copy why-lead">
               For millions of people across Nigeria and Africa, low incomes
               and poor infrastructure stand between them and safe electricity
               for children to study, parents to improve their business income,
@@ -262,58 +265,23 @@ export default function Home() {
               keeping the systems working long after installation.
             </p>
 
-            <Link
-              href="/about"
-              className="text-link"
-            >
-              Learn About Our Mission
-              <span>→</span>
-            </Link>
-          </div>
+            <div className="why-actions">
+              <Link
+                href="/impact"
+                className="impact-pill"
+              >
+                <strong>2,700+</strong>
+                <span>People Reached</span>
+              </Link>
 
-          <div className="why-grid">
-            <article className="why-card">
-              <span>01</span>
-
-              <h3>People</h3>
-
-              <p>
-                Expand reliable
-                electricity access for
-                households,
-                microbusinesses,
-                schools, clinics and
-                essential community
-                services.
-              </p>
-            </article>
-
-            <article className="why-card">
-              <span>02</span>
-
-              <h3>Planet</h3>
-
-              <p>
-                Recover and recycle solar
-                and electronic waste
-                before it becomes an
-                environmental burden.
-              </p>
-            </article>
-
-            <article className="why-card">
-              <span>03</span>
-
-              <h3>Opportunity</h3>
-
-              <p>
-                Build practical skills
-                and local opportunities
-                around installation,
-                maintenance, recovery
-                and recycling.
-              </p>
-            </article>
+              <Link
+                href="/about"
+                className="text-link why-mission-link"
+              >
+                Learn About Our Mission
+                <span>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -1368,6 +1336,54 @@ export default function Home() {
 
         .why-section {
           padding: 72px 0 38px;
+        }
+
+        .why-simple {
+          display: grid;
+          grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
+          gap: 70px;
+          align-items: start;
+        }
+
+        .why-copy-block {
+          max-width: 900px;
+        }
+
+        .why-lead {
+          margin-top: 0;
+        }
+
+        .why-actions {
+          margin-top: 30px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+
+        .impact-pill {
+          display: inline-flex;
+          align-items: baseline;
+          gap: 10px;
+          padding: 13px 18px;
+          border-radius: 999px;
+          background: var(--foundation-dark);
+          color: white;
+          text-decoration: none;
+        }
+
+        .impact-pill strong {
+          font-size: 20px;
+          letter-spacing: -0.03em;
+        }
+
+        .impact-pill span {
+          font-size: 13px;
+          opacity: 0.82;
+        }
+
+        .why-mission-link {
+          margin-top: 0;
         }
 
         .why-layout {
@@ -2455,6 +2471,16 @@ export default function Home() {
             width: calc(
               100% - 30px
             );
+          }
+
+          .why-simple {
+            grid-template-columns: 1fr;
+            gap: 18px;
+          }
+
+          .why-actions {
+            margin-top: 24px;
+            gap: 18px;
           }
 
           .hero {
